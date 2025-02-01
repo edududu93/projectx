@@ -1,12 +1,17 @@
 package main
 
 import (
-	"fmt"
-	"github.com/edududu93/projectx.git"
+	//"fmt"
+	"projectx/network" // YT: "github.com/anthdm/projectx/network"
 )
 
 func main() {
-	opts := network.Serveropts {
-		Transports: []network.Transport{
+	trLocal := network.NewLocalTransport("LOCAL")
+
+	opts := network.ServerOpts {
+		Transports: []network.Transport{trLocal},
 	}
+
+	s := network.NewServer(opts)
+	s.Start()
 }
