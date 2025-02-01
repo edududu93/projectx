@@ -1,12 +1,23 @@
 package main
 
 import (
-	//"fmt"
+	"time"
 	"projectx/network" // YT: "github.com/anthdm/projectx/network"
 )
 
 func main() {
 	trLocal := network.NewLocalTransport("LOCAL")
+	trRemote := network.NewLocalTransport("REMOTE")
+
+	trLocal.Connect(trRemote)
+	trRemote.Connect(trLocal)
+
+	go func () {
+		for {
+			trRemote.SendMessage(trLocal.Addr(), []byte("Hello, World!"))
+			time.Sleep(1 * time.Second)
+		}
+	}()
 
 	opts := network.ServerOpts {
 		Transports: []network.Transport{trLocal},
@@ -15,3 +26,4 @@ func main() {
 	s := network.NewServer(opts)
 	s.Start()
 }
+
