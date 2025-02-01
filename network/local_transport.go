@@ -25,10 +25,11 @@ func (t *LocalTransport) Consume() <-chan RPC {
 }
 
 func (t *LocalTransport) Connect(tr Transport) error {
+	trans := tr.(*LocalTransport) // network\local_transport.go:28:2: trans declared but not used
 	t.lock.Lock()
 	defer t.lock.Unlock()
 
-	t.peers[tr.Addr()] = tr.(*LocalTransport)
+	t.peers[tr.Addr()] = trans
 
 	return nil
 }

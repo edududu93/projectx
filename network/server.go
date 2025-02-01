@@ -33,7 +33,7 @@ free:
 	for {
 		select {
 		case rpc := <-s.rpcCh:
-			fmt.Printf("%+v", rpc)
+			fmt.Printf("%+v\n", rpc)
 		case <-s.quitCh:
 			break free
 		case <-ticker.C:
