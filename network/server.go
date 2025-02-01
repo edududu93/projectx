@@ -1,0 +1,15 @@
+package network
+
+type Serveropts struct {
+	Transports []Transport
+}
+
+type Server struct {
+	ServerOpts
+}
+
+func NewServer(opts ServerOpts) *Server {
+	return &Server{
+		ServerOpts: opts,
+	}
+}
