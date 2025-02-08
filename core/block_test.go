@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"testing"
 	"time"
+	"fmt"
 
 	"projectx/types"
 	"github.com/stretchr/testify/assert"
@@ -44,4 +45,21 @@ func TestBlock_Encode_Decode(t *testing.T) {
 	bDecode := &Block{}
 	assert.Nil(t, bDecode.DecodeBinary(buf))
 	assert.Equal(t, b, bDecode)
+	fmt.Printf("%+v", bDecode)
+}
+
+func TestBlockhash (t *testing.T) {
+	b := &Block {
+		Header: Header{
+			Version:   1,
+			PrevBlock: types.RandomHash(),
+			Timestamp: time.Now().UnixNano(),
+			Height:    10,
+			Nonce:     989394,
+		},
+		Transactions: []Transaction{},
+	}
+	h := b.Hash()
+	fmt.Println(h)
+	assert.False(t, h.IsZero())
 }
