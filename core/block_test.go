@@ -3,9 +3,12 @@ package core
 import (
 	"testing"
 	"time"
-	"fmt"
+	//"fmt"
 
 	"projectx/types"
+	"projectx/crypto"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func randomBlock(height uint32) *Block {
@@ -21,7 +24,9 @@ func randomBlock(height uint32) *Block {
 	return NewBlock(header, []Transaction{tx})
 }
 
-func TestHashBlock(t *testing.T) {
+func TestSignBlock(t *testing.T) {
+	privKey := crypto.GeneratePrivateKey()
 	b := randomBlock(0)
-	fmt.Println(b.Hash(BlockHasher{}))
+	assert.Nil(t, b.Sign(privKey))
+	assert.NotNil(t, b.Signature)
 }
