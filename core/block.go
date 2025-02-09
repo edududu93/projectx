@@ -2,12 +2,13 @@ package core
 
 import (
 	"bytes"
-	//"encoding/binary"
+	"encoding/gob"	
 	"fmt"
 	"io"
 	//"crypto/sha256"
+	//"encoding/binary"
 
-	"encoding/gob"
+	
 	"projectx/types"
 	"projectx/crypto"
 )
