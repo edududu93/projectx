@@ -20,7 +20,10 @@ func (k PrivateKey) Sign(data []byte) (*Signature, error) {
 		return nil, err
 	}
 
-	return &Signature {r, s}, nil
+	return &Signature{
+		r: r,
+		s: s,
+	}, nil
 }
 
 func GeneratePrivateKey() PrivateKey {
@@ -56,4 +59,8 @@ func (k PublicKey) Address() types.Address {
 
 type Signature struct {
 	s, r *big.Int
+}
+
+func (sig Signature) Verify(pubKey PublicKey, data []byte) bool {
+	return ecdsa.Verify(pubKey.key, data, sig.r, sig.s)
 }
